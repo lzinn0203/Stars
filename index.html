@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>✦ Thauane ✦</title>
+<meta name="theme-color" content="#07051a">
+
+<style>
+:root{
+  --ink:#f8f7ff;
+  --muted:#b9b4d6;
+  --blue:#5f8cff;
+  --cyan:#8edbff;
+  --violet:#9a62ff;
+  --lilac:#d7b8ff;
+  --deep:#050416;
+  --deep2:#0a0624;
+  --glass:rgba(14,10,39,.58);
+  --stroke:rgba(207,190,255,.17);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--deep);color:var(--ink)}
+body{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  position:relative;
+}
+button{font:inherit}
+#space{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+.aurora,.aurora:before,.aurora:after{
+  position:fixed;inset:-25%;content:"";pointer-events:none;z-index:1;
+}
+.aurora{
+  background:
+    radial-gradient(ellipse at 18% 72%,rgba(72,91,255,.20),transparent 32%),
+    radial-gradient(ellipse at 82% 25%,rgba(164,74,255,.19),transparent 30%);
+  filter:blur(45px);
+  animation:drift 18s ease-in-out infinite alternate;
+}
+.aurora:before{
+  background:
+    radial-gradient(ellipse at 58% 12%,rgba(119,188,255,.13),transparent 25%),
+    radial-gradient(ellipse at 40% 86%,rgba(188,91,255,.11),transparent 28%);
+  filter:blur(55px);
+  animation:drift2 25s ease-in-out infinite alternate;
+}
+.aurora:after{
+  background:linear-gradient(120deg,transparent 35%,rgba(149,105,255,.05),transparent 65%);
+  animation:scan 12s linear infinite;
+}
+@keyframes drift{to{transform:translate(4%,-3%) scale(1.08)}}
+@keyframes drift2{to{transform:translate(-4%,4%) scale(1.12)}}
+@keyframes scan{to{transform:translateX(18%) rotate(2deg)}}
+
+.screen{
+  position:absolute;inset:0;z-index:3;
+  display:grid;place-items:center;
+  padding:clamp(18px,4vw,48px);
+  opacity:0;visibility:hidden;
+  transform:translateY(34px) scale(.975);
+  transition:opacity .7s var(--ease),transform .9s var(--ease),visibility .7s;
+  overflow:auto;
+  scrollbar-width:none;
+}
+.screen::-webkit-scrollbar{display:none}
+.screen.active{opacity:1;visibility:visible;transform:none}
+.screen.active .reveal{animation:rise .9s var(--ease) both}
+.screen.active .reveal:nth-child(2){animation-delay:.08s}
+.screen.active .reveal:nth-child(3){animation-delay:.16s}
+.screen.active .reveal:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+.shell{width:min(1050px,100%);position:relative;text-align:center}
+.kicker{
+  display:inline-flex;align-items:center;gap:11px;
+  text-transform:uppercase;letter-spacing:.30em;font-size:.67rem;
+  color:#b9caff;margin-bottom:20px;
+}
+.kicker:before,.kicker:after{content:"";width:28px;height:1px;background:linear-gradient(90deg,transparent,#a979ff)}
+.kicker:after{background:linear-gradient(90deg,#78b9ff,transparent)}
+h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:400}
+h1{
+  margin:0;font-size:clamp(3.3rem,10vw,8.8rem);line-height:.84;letter-spacing:-.07em;
+  background:linear-gradient(135deg,#fff 12%,#e8dfff 42%,#9ccaff 78%,#b989ff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 0 60px rgba(137,104,255,.16);
+}
+h2{margin:0 0 18px;font-size:clamp(2.4rem,6vw,5.4rem);line-height:.92;letter-spacing:-.055em}
+.lead{max-width:700px;margin:0 auto;color:var(--muted);line-height:1.85;font-size:clamp(.95rem,2vw,1.08rem)}
+.card{
+  position:relative;overflow:hidden;
+  border:1px solid var(--stroke);
+  background:linear-gradient(145deg,rgba(28,20,65,.68),rgba(6,6,27,.55));
+  backdrop-filter:blur(25px) saturate(140%);
+  -webkit-backdrop-filter:blur(25px) saturate(140%);
+  box-shadow:0 35px 100px rgba(0,0,0,.45),inset 0 1px rgba(255,255,255,.08);
+  border-radius:34px;
+}
+.card:before{
+  content:"";position:absolute;inset:-1px;pointer-events:none;
+  background:linear-gradient(120deg,transparent 15%,rgba(255,255,255,.07) 48%,transparent 78%);
+  transform:translateX(-120%);animation:shine 9s ease-in-out infinite;
+}
+@keyframes shine{45%,100%{transform:translateX(120%)}}
+
+.opening{
+  min-height:min(690px,calc(100vh - 36px));
+  padding:clamp(42px,8vw,95px) 24px;
+  display:grid;place-items:center;
+}
+.orbit{
+  width:110px;height:110px;border:1px solid rgba(190,166,255,.26);border-radius:50%;
+  margin:0 auto 34px;position:relative;box-shadow:0 0 65px rgba(112,92,255,.18);
+  animation:float 5s ease-in-out infinite;
+}
+.orbit:before,.orbit:after{content:"";position:absolute;border-radius:50%;inset:16px;border:1px solid rgba(121,187,255,.23)}
+.orbit:after{inset:45%;background:#fff;box-shadow:0 0 18px #fff,0 0 50px #9a73ff}
+@keyframes float{50%{transform:translateY(-8px) rotate(8deg)}}
+.opening .lead{margin-top:30px}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:34px}
+.btn{
+  border:1px solid rgba(194,172,255,.35);border-radius:999px;
+  padding:14px 24px;cursor:pointer;color:#fff;
+  background:linear-gradient(135deg,#557eff,#914de4);
+  box-shadow:0 12px 38px rgba(92,70,220,.30),inset 0 1px rgba(255,255,255,.2);
+  transition:.3s var(--ease);
+}
+.btn:hover{transform:translateY(-4px);box-shadow:0 18px 55px rgba(117,77,236,.46)}
+.btn.ghost{background:rgba(255,255,255,.045);box-shadow:none;color:#d9d4ea}
+.btn:active{transform:scale(.97)}
+
+.story-card{padding:clamp(28px,6vw,70px)}
+.story-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;margin-top:35px;text-align:left}
+.story-panel{
+  border:1px solid rgba(207,190,255,.11);border-radius:24px;
+  padding:26px;background:rgba(255,255,255,.035);
+}
+.story-panel .number{font-size:.7rem;letter-spacing:.2em;color:#92bcff}
+.story-panel h3{font-size:1.55rem;margin:10px 0}
+.story-panel p{color:#aaa5c5;line-height:1.7;font-size:.92rem}
+.quote{
+  margin-top:20px;padding:20px;border-left:2px solid #a06cff;
+  background:linear-gradient(90deg,rgba(137,91,255,.09),transparent);
+  color:#ddd6f2;line-height:1.7;font-family:Georgia,serif;
+}
+
+.constellation-card{padding:clamp(22px,4vw,42px)}
+.constellation-head{margin-bottom:8px}
+.constellation-head p{max-width:620px}
+.sky{
+  position:relative;width:min(860px,100%);height:min(54vh,450px);min-height:290px;
+  margin:28px auto 0;border-radius:28px;overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(128,92,255,.10),transparent 38%),
+    linear-gradient(180deg,rgba(4,7,28,.38),rgba(11,5,34,.55));
+  border:1px solid rgba(206,187,255,.12);
+}
+.sky:before{
+  content:"";position:absolute;inset:12%;
+  border:1px solid rgba(179,159,255,.06);border-radius:50%;
+  box-shadow:0 0 100px rgba(111,77,255,.08);
+}
+.sky svg{width:100%;height:100%;position:relative;z-index:2}
+.t-line{
+  stroke:url(#tGradient);stroke-width:1.7;stroke-linecap:round;
+  stroke-dasharray:4 10;filter:drop-shadow(0 0 7px rgba(137,116,255,.8));
+  animation:flow 5s linear infinite;
+}
+@keyframes flow{to{stroke-dashoffset:-100}}
+.t-star{
+  fill:#fff;cursor:pointer;
+  filter:drop-shadow(0 0 4px #fff) drop-shadow(0 0 12px #a875ff);
+  animation:twinkle 2.6s ease-in-out infinite;
+  transform-box:fill-box;transform-origin:center;
+  transition:.25s;
+}
+.t-star:hover,.t-star.selected{transform:scale(1.8);filter:drop-shadow(0 0 7px #fff) drop-shadow(0 0 24px #a96cff)}
+@keyframes twinkle{50%{opacity:.45;transform:scale(.75)}}
+.t-label{
+  fill:rgba(213,194,255,.08);stroke:rgba(176,137,255,.40);stroke-width:1;
+  font-size:155px;font-family:Georgia,serif;filter:drop-shadow(0 0 22px rgba(155,94,255,.55));
+  pointer-events:none;
+}
+.constellation-caption{margin:12px 0 0;color:#9993b8;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase}
+.message{
+  max-height:0;opacity:0;overflow:hidden;margin:0 auto;
+  max-width:700px;transition:.6s var(--ease);transform:translateY(10px);
+}
+.message.visible{max-height:330px;opacity:1;transform:none;margin-top:18px}
+.message-inner{
+  border:1px solid rgba(207,188,255,.15);border-radius:22px;padding:20px;
+  background:rgba(255,255,255,.035);text-align:left;
+}
+.message-date{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:#91baff}
+.message-title{font-size:1.15rem;font-weight:700;color:#e2d6ff;margin:7px 0}
+.message-text{color:#b5b0ca;line-height:1.65;font-size:.9rem}
+.message .btn{margin-top:15px}
+.edit-note{
+  margin-top:17px;font-size:.65rem;color:rgba(255,255,255,.3);
+  letter-spacing:.08em;
+}
+
+.moments{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:20px}
+.moment{
+  text-align:left;padding:20px;border:1px solid rgba(210,194,255,.1);border-radius:20px;
+  background:rgba(255,255,255,.035);transition:.3s var(--ease);
+}
+.moment:hover{transform:translateY(-6px);border-color:rgba(180,147,255,.3);background:rgba(133,100,230,.08)}
+.moment small{color:#8dbbff;letter-spacing:.12em}
+.moment strong{display:block;margin:7px 0 5px}
+.moment span{font-size:.78rem;line-height:1.5;color:#8f8aa7}
+
+.proposal-card{padding:clamp(38px,8vw,88px) 26px}
+.proposal-symbol{
+  width:92px;height:92px;border-radius:50%;margin:0 auto 28px;
+  display:grid;place-items:center;font-size:2rem;
+  background:radial-gradient(circle,rgba(171,106,255,.35),rgba(72,102,255,.06) 55%,transparent 70%);
+  filter:drop-shadow(0 0 24px rgba(161,101,255,.7));
+  animation:pulse 3s ease-in-out infinite;
+}
+@keyframes pulse{50%{transform:scale(1.08);filter:drop-shadow(0 0 42px rgba(177,103,255,.9))}}
+.question{font-size:clamp(1.2rem,3vw,1.6rem);line-height:1.6;color:#d7d2e7;margin-top:24px}
+.question b{color:#dfc8ff}
+.answers{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:28px}
+.answer{
+  display:none;margin:25px auto 0;max-width:650px;padding:20px;border-radius:20px;
+  background:rgba(255,255,255,.035);border:1px solid rgba(207,190,255,.12);color:#aaa5c2;line-height:1.7;
+}
+.answer.visible{display:block;animation:rise .6s var(--ease)}
+.final-card{padding:clamp(42px,8vw,85px) 25px}
+.final-star{font-size:2rem;filter:drop-shadow(0 0 20px #9b67ff);margin-bottom:22px}
+.signature{margin-top:30px;color:#bda7ff;font-family:Georgia,serif;font-size:1.2rem}
+
+#backButton{
+  position:fixed;z-index:8;left:22px;top:22px;opacity:0;visibility:hidden;
+  border:1px solid rgba(209,193,255,.16);background:rgba(10,7,31,.48);
+  backdrop-filter:blur(14px);color:#cbc6df;border-radius:999px;padding:10px 15px;cursor:pointer;
+  transition:.3s;
+}
+#backButton.visible{opacity:1;visibility:visible}
+.progress{position:fixed;z-index:8;bottom:22px;left:50%;transform:translateX(-50%);display:flex;gap:7px}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);transition:.35s}
+.dot.active{width:24px;border-radius:9px;background:#b98cff;box-shadow:0 0 14px rgba(173,119,255,.75)}
+.hint{position:fixed;z-index:8;right:22px;bottom:20px;font-size:.62rem;color:rgba(255,255,255,.25);letter-spacing:.08em}
+
+@media(max-width:760px){
+  .screen{padding:14px;padding-bottom:55px}
+  .card{border-radius:25px}
+  .opening{min-height:calc(100vh - 28px)}
+  h1{font-size:clamp(3.2rem,18vw,6rem)}
+  h2{font-size:clamp(2.35rem,12vw,4rem)}
+  .story-grid,.moments{grid-template-columns:1fr}
+  .story-card{padding:30px 18px}
+  .story-panel{padding:20px}
+  .sky{height:320px;min-height:0;margin-top:22px}
+  .t-label{font-size:135px}
+  .constellation-card{padding:20px 12px}
+  .constellation-head p{font-size:.88rem}
+  .message-inner{text-align:center}
+  .hint{display:none}
+  #backButton{top:14px;left:14px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+<canvas id="space"></canvas>
+<div class="aurora"></div>
+
+<button id="backButton" onclick="previousScreen()">← voltar</button>
+
+<section class="screen active" id="screen1">
+  <div class="shell card opening">
+    <div class="reveal">
+      <div class="orbit"></div>
+      <div class="kicker">uma história escrita nas estrelas</div>
+      <h1>Thauane</h1>
+      <p class="lead">
+        Algumas pessoas chegam à nossa vida por acaso. Outras parecem ter sido destinadas a se encontrar, mesmo em meio à imensidão de um universo inteiro. Entre tantos caminhos possíveis, o nosso se cruzou. E esse é o começo de nós!
+      </p>
+      <div class="cta-row">
+        <button class="btn" onclick="nextScreen()">Bom, vamos lá? ✦</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="screen2">
+  <div class="shell card story-card">
+    <div class="reveal">
+      <div class="kicker">antes de qualquer coisa</div>
+      <h2>Entre bilhões de estrelas,<br>nossos caminhos se encontraram.</h2>
+      <p class="lead">E, aos poucos, aquilo que parecia ser apenas mais um encontro começou a revelar um significado maior.</p>
+
+      <div class="story-grid">
+        <article class="story-panel">
+          <div class="number">01 — O COMEÇO</div>
+          <h3>30/10/2026.</h3>
+          <p>Uma conversa, uma iniciativa, uma vontade de continuar perto. Algumas histórias não avisam quando começam.</p>
+        </article>
+        <article class="story-panel">
+          <div class="number">02 — O QUE FICOU?</div>
+          <h3> Simples, vieram os detalhes.</h3>
+          <p>As risadas, as mensagens, as pequenas lembranças como fotos e aquela sensação boa de querer descobrir mais sobre você.</p>
+        </article>
+      </div>
+
+      <div class="quote">
+        “Talvez o universo seja enorme justamente para que, em algum momento,
+        duas pessoas certas consigam se encontrar, e acredito que nosso momento enfim chegou.”
+      </div>
+
+      <div class="cta-row">
+        <button class="btn" onclick="nextScreen()">Ver nossa constelação (Surpresa) →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="screen3">
+  <div class="shell card constellation-card">
+    <div class="reveal constellation-head">
+      <div class="kicker">constelação de momentos</div>
+      <h2>Um T feito de estrelas.</h2>
+      <p class="lead">Cada estrela guarda um momento. Toque em qualquer uma para abrir a lembrança.</p>
+    </div>
+
+    <div class="sky reveal">
+      <svg viewBox="0 0 860 450" role="img" aria-label="Constelação em formato de T">
+        <defs>
+          <linearGradient id="tGradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#8dbdff"/>
+            <stop offset=".48" stop-color="#d4a8ff"/>
+            <stop offset="1" stop-color="#8b5cff"/>
+          </linearGradient>
+        </defs>
+
+        <!-- CONSTELAÇÃO T: altere os pontos/linhas aqui se quiser redesenhar -->
+        <g class="t-line">
+          <line x1="245" y1="105" x2="615" y2="105"/>
+          <line x1="430" y1="105" x2="430" y2="365"/>
+          <line x1="315" y1="105" x2="430" y2="105"/>
+          <line x1="545" y1="105" x2="430" y2="105"/>
+          <line x1="430" y1="185" x2="430" y2="265"/>
+          <line x1="430" y1="265" x2="430" y2="365"/>
+        </g>
+
+        <text class="t-label" x="430" y="320" text-anchor="middle">T</text>
+
+        <!-- MOMENTOS: cada data-star aponta para o mesmo índice em constellationMessages -->
+        <circle class="t-star" data-star="0" cx="245" cy="105" r="5" onclick="showStarMessage(0)"/>
+        <circle class="t-star" data-star="1" cx="315" cy="105" r="4.5" onclick="showStarMessage(1)"/>
+        <circle class="t-star" data-star="2" cx="430" cy="105" r="6" onclick="showStarMessage(2)"/>
+        <circle class="t-star" data-star="3" cx="545" cy="105" r="4.5" onclick="showStarMessage(3)"/>
+        <circle class="t-star" data-star="4" cx="615" cy="105" r="5" onclick="showStarMessage(4)"/>
+        <circle class="t-star" data-star="5" cx="430" cy="185" r="4.5" onclick="showStarMessage(5)"/>
+        <circle class="t-star" data-star="6" cx="430" cy="265" r="5" onclick="showStarMessage(6)"/>
+        <circle class="t-star" data-star="7" cx="430" cy="365" r="6" onclick="showStarMessage(7)"/>
+      </svg>
+    </div>
+
+    <div class="constellation-caption reveal">Luan • Thauane • uma história ainda em construção</div>
+
+    <div class="message" id="starMessage">
+      <div class="message-inner">
+        <div class="message-date" id="starMessageDate"></div>
+        <div class="message-title" id="starMessageTitle"></div>
+        <div class="message-text" id="starMessageText"></div>
+        <button class="btn" onclick="closeStarMessage()">Fechar lembrança</button>
+      </div>
+    </div>
+
+    <!-- <div class="edit-note reveal">Os momentos ficam todos juntos no bloco <b>constellationMessages</b> do JavaScript.</div> -->
+
+    <div class="moments reveal">
+      <div class="moment"><small>01</small><strong>O começo</strong><span>O instante em que tudo ganhou um primeiro capítulo.</span></div>
+      <div class="moment"><small>02</small><strong>As conversas</strong><span>Quando conhecer você começou a ficar cada vez mais especial.</span></div>
+      <div class="moment"><small>03</small><strong>Os detalhes</strong><span>Aqueles pequenos momentos, sorrisos e piadas que acabam significando muito.</span></div>
+    </div>
+
+    <div class="cta-row reveal">
+      <button class="btn" onclick="nextScreen()">Continuar →</button>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="screen4">
+  <div class="shell card proposal-card">
+    <div class="reveal">
+      <div class="proposal-symbol">✦</div>
+      <div class="kicker">chegamos ao tão esperado pedido</div>
+      <h2>Thauane, quer<br>namorar comigo?</h2>
+      <p class="question">Depois de tudo que já vivemos e ainda podemos viver, eu queria saber se você aceita <b>continuar essa história comigo.</b></p>
+
+      <div class="answers">
+        <button class="btn" onclick="answerYes()">Sim. ♡</button>
+        <button class="btn ghost" onclick="answerNo()">Preciso pensar.</button>
+      </div>
+
+      <div class="answer" id="answerYes">
+        Então é oficial. ✦<br><br>
+        Que a nossa constelação continue crescendo, uma estrela de cada vez.
+      </div>
+
+      <div class="answer" id="answerNo">
+        Tudo bem. ✦<br><br>
+        Algumas respostas também precisam do próprio tempo. Obrigado por ouvir meu coração e por tudo que vivemos até aqui.
+      </div>
+
+      <div class="cta-row">
+        <button class="btn" onclick="goToFinal()">Seguir para o último capítulo →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="screen" id="screen5">
+  <div class="shell card final-card">
+    <div class="reveal">
+      <div class="final-star">✦</div>
+      <div class="kicker">para tudo que ainda está por vir</div>
+      <h2>Obrigado por nós.</h2>
+      <p class="lead">
+        Obrigado por cada conversa, cada sorriso e cada pequeno momento que trouxe a gente até aqui.
+        Ainda existem lugares que não conhecemos, memórias que não existem e estrelas que ainda nem entraram na nossa constelação.
+        <br><br>
+        <span style="color:#cdb8ff">E talvez seja justamente isso que torna tudo tão bonito.</span>
+      </p>
+      <div class="signature">Pois o melhor ainda está por vir, Thauane. ✦</div>
+    </div>
+  </div>
+</section>
+
+<div class="progress">
+  <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+</div>
+<div class="hint">use os botões para navegar</div>
+
+<script>
+/* =========================================================
+   MOMENTOS DA CONSTELAÇÃO — EDITE SOMENTE AQUI
+   Cada objeto cria uma lembrança para uma estrela.
+   A ordem 0,1,2... corresponde às estrelas da constelação.
+========================================================= */
+constellationMessages = [
+  {
+    date:"04/10/2026",
+    title:"O primeiro encontro ✦",
+    text:"Foi aqui que tudo começou. O primeiro encontro pra assistir um filme com o final péssimo kkkkk, porém foi um dia incrível ao seu lado, assim como todos os momentos com você é!."
+  },
+  {
+    date:"30/08/2026",
+    title:"As primeiras conversas ✦",
+    text:"Cada conversa foi me fazendo conhecer você um pouco mais a partir desse dia. E quanto mais eu conhecia você, mais especial ficava continuar descobrindo quem você é."
+  },
+  {
+    date:"Um ponto estrelar especial",
+    title:"Seu sorriso ✦",
+    text:"Existem coisas que talvez você nem perceba, mas que ficam guardadas na minha mente. Seu sorriso é uma delas."
+  },
+  {
+    date:"Uma lembrança",
+    title:"Quando tudo ficou diferente ✦",
+    text:"Em algum momento, conversar com você deixou de ser apenas uma conversa. Começou a existir aquela vontade de estar perto, conhecer mais e viver novos momentos."
+  },
+  {
+    date:"Entre tantas estrelas",
+    title:"Você ✦",
+    text:"Em um universo enorme, cheio de pessoas e caminhos diferentes, eu tive a sorte de encontrar você."
+  },
+  {
+    date:"Nosso momento",
+    title:"Pequenos detalhes ✦",
+    text:"Talvez sejam os pequenos detalhes que tornam tudo especial. Uma conversa, uma risada, um olhar, uma mensagem. Coisas pequenas que acabam significando muito."
+  },
+  {
+    date:"O que já vivemos",
+    title:"Nossa história ✦",
+    text:"Ainda não temos uma história enorme. Mas tudo que já vivemos até aqui já foi suficiente para fazer você ocupar um espaço muito especial na minha vida."
+  },
+  {
+    date:"O que ainda vem",
+    title:"Ainda existem estrelas ✦",
+    text:"Essa constelação ainda não está completa. Talvez porque ainda existam muitos momentos que precisamos viver para terminar de construir essa nossa história com o nosso pra sempre feliz, pois não vai ter um final."
+  }
+];
+
+let currentScreen = 0;
+const screens = [...document.querySelectorAll(".screen")];
+const dots = [...document.querySelectorAll(".dot")];
+const backButton = document.getElementById("backButton");
+
+function showScreen(index){
+  if(index < 0 || index >= screens.length) return;
+  screens.forEach((s,i)=>s.classList.toggle("active",i===index));
+  dots.forEach((d,i)=>d.classList.toggle("active",i===index));
+  currentScreen=index;
+  backButton.classList.toggle("visible",index>0);
+}
+function nextScreen(){ showScreen(Math.min(currentScreen+1,screens.length-1)); }
+function previousScreen(){ showScreen(Math.max(currentScreen-1,0)); }
+function goToFinal(){ showScreen(4); }
+
+function showStarMessage(index){
+  const item=constellationMessages[index];
+  if(!item) return;
+  document.getElementById("starMessageDate").textContent=item.date;
+  document.getElementById("starMessageTitle").textContent=item.title;
+  document.getElementById("starMessageText").textContent=item.text;
+  const box=document.getElementById("starMessage");
+  box.classList.add("visible");
+  document.querySelectorAll(".t-star").forEach((star,i)=>star.classList.toggle("selected",i===index));
+}
+function closeStarMessage(){
+  document.getElementById("starMessage").classList.remove("visible");
+  document.querySelectorAll(".t-star").forEach(s=>s.classList.remove("selected"));
+}
+function answerYes(){
+  document.getElementById("answerYes").classList.add("visible");
+  document.getElementById("answerNo").classList.remove("visible");
+}
+function answerNo(){
+  document.getElementById("answerNo").classList.add("visible");
+  document.getElementById("answerYes").classList.remove("visible");
+}
+
+/* Navegação por teclado */
+document.addEventListener("keydown",e=>{
+  if(e.key==="ArrowRight" || e.key==="Enter") nextScreen();
+  if(e.key==="ArrowLeft") previousScreen();
+});
+
+/* =========================================================
+   CÉU: estrelas, partículas e estrelas cadentes
+========================================================= */
+const canvas=document.getElementById("space");
+const ctx=canvas.getContext("2d");
+let W,H,dpr,stars=[],shooters=[],particles=[];
+
+function resize(){
+  dpr=Math.min(window.devicePixelRatio||1,2);
+  W=window.innerWidth; H=window.innerHeight;
+  canvas.width=W*dpr; canvas.height=H*dpr;
+  canvas.style.width=W+"px"; canvas.style.height=H+"px";
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  makeStars();
+}
+function makeStars(){
+  const count=Math.min(170,Math.max(80,Math.floor(W*H/8500)));
+  stars=Array.from({length:count},()=>({
+    x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.25+.2,
+    a:Math.random()*.65+.15,s:Math.random()*.018+.004,p:Math.random()*Math.PI*2
+  }));
+}
+function addShooter(){
+  if(Math.random()>.035) return;
+  shooters.push({
+    x:Math.random()*W*.9,y:Math.random()*H*.45,
+    vx:7+Math.random()*5,vy:3+Math.random()*3,
+    life:0,max:55+Math.random()*35
+  });
+}
+function draw(){
+  ctx.clearRect(0,0,W,H);
+  const g=ctx.createRadialGradient(W*.5,H*.45,0,W*.5,H*.45,Math.max(W,H)*.7);
+  g.addColorStop(0,"rgba(52,42,115,.11)");
+  g.addColorStop(1,"rgba(0,0,0,0)");
+  ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+
+  for(const s of stars){
+    s.p+=s.s;
+    const alpha=s.a+(Math.sin(s.p)*.22);
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(224,226,255,${Math.max(.05,alpha)})`;ctx.fill();
+  }
+
+  addShooter();
+  shooters=shooters.filter(q=>q.life<q.max);
+  for(const q of shooters){
+    q.x+=q.vx;q.y+=q.vy;q.life++;
+    const grad=ctx.createLinearGradient(q.x-q.vx*7,q.y-q.vy*7,q.x,q.y);
+    grad.addColorStop(0,"rgba(140,170,255,0)");
+    grad.addColorStop(1,"rgba(236,218,255,.9)");
+    ctx.strokeStyle=grad;ctx.lineWidth=1.2;
+    ctx.beginPath();ctx.moveTo(q.x-q.vx*7,q.y-q.vy*7);ctx.lineTo(q.x,q.y);ctx.stroke();
+  }
+  requestAnimationFrame(draw);
+}
+window.addEventListener("resize",resize,{passive:true});
+resize();draw();
+</script>
+</body>
+</html>
